@@ -3,6 +3,7 @@ prims/
 templates/
 blocks/
 train_data/
+testoutput/
 prims_without_staff/
 heads/
 dataset
@@ -10,4 +11,5 @@ folder/
 .ipynb_checkpoints
 __pycache__
 .vscode
+.venv
 .ipynb_checkpoints
