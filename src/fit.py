@@ -6,11 +6,11 @@ import os
 import pickle
 
 def predict(img):
-    if not os.path.exists('trained_models/nn_trained_model_hog.sav'):
+    if not os.path.exists('src/trained_models/nn_trained_model_hog.sav'):
         print('Please wait while training the NN-HOG model....')
         train('NN', 'hog', 'nn_trained_model_hog')
 
-    model = pickle.load(open('trained_models/nn_trained_model_hog.sav', 'rb'))
+    model = pickle.load(open('src/trained_models/nn_trained_model_hog.sav', 'rb'))
     features = extract_features(img, 'hog')
     labels = model.predict([features])
 

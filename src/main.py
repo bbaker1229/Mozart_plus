@@ -8,6 +8,7 @@ from glob import glob
 import cv2
 import pickle
 from scipy.ndimage import binary_fill_holes
+from skimage.color import rgba2rgb
 from skimage.morphology import thin
 import argparse
 
@@ -209,20 +210,23 @@ def main(input_path, output_path):
         out_file = open(f'{output_path}/{img_name}.txt', "w")
         print(f"Processing new image {img_name}...")
         img = io.imread(img_path)
+        img = rgba2rgb(img)
+        # io.imsave('testcases/mid_step/'+img_name+'.png', img)
         img = gray_img(img)
         horizontal = IsHorizontal(img)
         if horizontal == False:
             theta = deskew(img)
             img = rotation(img, theta)
-            img = get_gray(img)
+            # img = get_gray(img)
             img = get_thresholded(img, threshold_otsu(img))
             img = get_closer(img)
             horizontal = IsHorizontal(img)
 
-        original = img.copy()
-        gray = get_gray(img)
+        gray = img.copy()
         bin_img = get_thresholded(gray, threshold_otsu(gray))
-
+        save_img = bin_img.copy()
+        save_img = (save_img * 255).astype(np.uint8)
+        # io.imsave('testcases/mid_step/'+img_name+'.png', save_img)
         segmenter = Segmenter(bin_img)
         imgs_with_staff = segmenter.regions_with_staff
         most_common = segmenter.most_common
@@ -246,6 +250,7 @@ def main(input_path, output_path):
 
 
 if __name__ == "__main__":
+    """
     parser = argparse.ArgumentParser()
 
     parser.add_argument("inputfolder", help="Input File")
@@ -253,3 +258,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     main(args.inputfolder, args.outputfolder)
+    """
+    main('testcases', 'testoutput')
+

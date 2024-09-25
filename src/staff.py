@@ -139,7 +139,7 @@ def coordinator(bin_img, horizontal):
         staff_lines = otsu(bin_img - no_staff_img)
         staff_lines = binary_erosion(
             staff_lines, np.ones((thickness+2, thickness+2)))
-        staff_lines = median(staff_lines, selem=square(21))
+        staff_lines = median(staff_lines, footprint=square(21))
         start = get_staff_row_position(staff_lines)
     staff_row_positions = get_rows(
         start, most_common, thickness, spacing)

@@ -69,7 +69,7 @@ def load_dataset(feature_set='raw', dir_names=[]):
         subset = random.sample([i for i in range(len(imgs))], min(len(imgs), sample_count))
         for i in subset:
             img = cv2.imread(imgs[i])
-            labels.append(dir_name)
+            labels.append('_'.join(dir_name.split('_')[:-1]))
             features.append(extract_features(img, feature_set))
     print(f'Total: {len(dir_names)} directories, and {count} images')
     return features, labels
@@ -117,7 +117,7 @@ def train(model_name, feature_name, saved_model_name):
 
     model, accuracy = run_experiment(model_name, feature_name, dir_names)
 
-    filename = f'trained_models/{saved_model_name}.sav'
+    filename = f'src/trained_models/{saved_model_name}.sav'
     pickle.dump(model, open(filename, 'wb'))
 
 
