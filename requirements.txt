@@ -1,0 +1,8 @@
+imutils==0.5.4
+opencv-python==4.10.0.84
+python-rtmidi==1.5.8
+scamp==0.9.1.post9
+scikit-image==0.24.0
+scikit-learn==1.5.1
+scipy==1.13.1
+matplotlib==3.9.2
